@@ -1,0 +1,58 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="inner-container">
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3">
+						<div class="inner-main">
+							<form class="form-horizontal">
+								<div class="content-sec">
+									<h2 class="title">{{type}} Balance</h2>
+									<div class="form-sec">
+										<div class="row">
+											<div class="overview pull-left">
+												<label>Wallet Balance  ({{walletBalance}})</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="row">
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label class="control-label">Amount</label>
+														<input type="text" class="form-control" value="">
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label class="control-label">Amount in Arabic</label>
+														<input type="text" class="form-control" value="">
+													</div>
+											    </div>
+											</div>
+											<div class="row">
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label class="control-label">Description</label>
+														<textarea class="form-control" id="1"></textarea>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label class="control-label">Description in Arabic</label>
+														<textarea class="form-control" id="2"></textarea>
+													</div>
+											    </div>
+											</div>
+										</div>
+										<button class="btn btn-default theme-btn" (click)="addOrDeductBalance(type)">{{type}}</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

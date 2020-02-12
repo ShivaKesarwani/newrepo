@@ -1,0 +1,88 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="inner-container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="inner-main">
+							<div class="content-sec">
+								<h2 class="title">Sub-Category Management</h2>
+								<div class="form-sec dasboard-shift">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-sm-12">
+													<input routerLink="/addEditCategories/0" value="Add New Sub-Category" 
+													  class="btn btn-default theme-btn add pull-right">
+												</div>
+											</div>
+											<div class="table-responsive">
+												<table class="table table-bordered">
+													<tr>
+														<th>S.No.</th>
+														<th>Sub-Category ID</th>
+														<th>Sub-Category Name</th>
+														<th>Parent Category</th>
+														<th>Action</th>
+														<th>Status</th>
+													</tr>
+													<tr>
+														<td></td>
+														<td><input type="text" (keyup)="searchUser('id')" [(ngModel)]="searchObject.id" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser('name')" [(ngModel)]="searchObject.name" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser('parent')" [(ngModel)]="searchObject.parent" placeholder="Search"></td>
+														<td>
+															<div>
+															  <select (change)="searchUser('status')" [(ngModel)]="searchObject.status">
+															  	<option value="All">All</option>
+																<option *ngFor="let status of statuses" value="{{status}}">{{status}} categories</option>
+															  </select>
+															</div>
+														</td>
+													</tr>
+													<tr *ngFor="let subCategory of subCategoryList | paginate:
+													  { itemsPerPage: 10, currentPage: currPage };let i=index">
+														<td>{{sNo+i+1}}</td>
+														<td>{{subCategory.subCategoryid}}</td>
+														<td>{{subCategory.subCategoryName}}</td>
+														<td>{{subCategory.parent}}</td>
+														<td>
+															<a [routerLink]="['/viewSubCategories',subCategory.subCategoryid]">View</a>&nbsp;
+															<a style="cursor: pointer;" (click)="openModal('#exampleModalCenter',subCategory)">Hide</a>
+														</td>
+														<td>{{subCategory.status}}</td>
+													</tr>
+												</table>
+												<pagination-controls (pageChange)="currPage = $event"></pagination-controls>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center" id="exampleModalLongTitle">Hide</h3>
+        
+      </div>
+      <div class="modal-body text-center">
+        Are you sure you want to hide the {{hidingCategory.subCategoryName}} ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="hideCategory()">YES</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>

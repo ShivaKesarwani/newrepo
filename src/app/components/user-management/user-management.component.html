@@ -1,0 +1,109 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="inner-container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="inner-main">
+							<div class="content-sec">
+								<h2 class="title">Users</h2>
+								<div class="form-sec dasboard-shift">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="row">
+												<div class="col-sm-12">
+													<input type="submit" value="Add New" (click)="goToUser()" class="btn btn-default theme-btn add pull-right">
+												</div>
+											</div>
+											<div class="table-responsive">
+												<table class="table table-bordered">
+													<tr>
+														<th>S.No.</th>
+														<th>User ID</th>
+														<th>Name</th>
+														<th>User Type</th>
+														<th>User Email ID</th>
+														<th>Phone No.</th>
+														<th>Logged-In Date</th>
+														<th>Business Name</th>
+														<th>Status</th>
+														<th>Email Verification</th>
+														<th>Action</th>
+													</tr>
+													<tr>
+														<td></td>
+														<td><input type="text" (keyup)="searchUser('id')" [(ngModel)]="searchObject.id" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser('name')" [(ngModel)]="searchObject.name" placeholder="Search"></td>
+														<td>
+															<div>
+															  <select (change)="searchUser('type')" [(ngModel)]="searchObject.userType">
+															  	<option value="All">All</option>
+																<option *ngFor="let type of types" value="{{type}}">{{type}}</option>
+															  </select>
+															</div>
+														</td>
+														<td><input type="text" (keyup)="searchUser('email')" [(ngModel)]="searchObject.email" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser('mobile')" [(ngModel)]="searchObject.mobile" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser('login')" [(ngModel)]="searchObject.loginDate" placeholder="Search by date"></td>
+														<td><input type="text" (keyup)="searchUser('business')" [(ngModel)]="searchObject.businessName" placeholder="Search"></td>
+														<td>
+															<div>
+															  <select (change)="searchUser('status')" [(ngModel)]="searchObject.status">
+															  	<option value="All">All</option>
+																<option *ngFor="let status of statuses" value="{{status}}">{{status}}</option>
+															  </select>
+															</div>
+														</td>
+														<td></td>
+														<td></td>
+													</tr>
+													<tr *ngFor="let user of userList | paginate: { itemsPerPage: 10, currentPage: currPage };let i=index">
+														<td>{{sNo+i+1}}</td>
+														<td>{{user.userid}}</td>
+														<td>{{user.name}}</td>
+														<td>{{user.userType}}</td>
+														<td>{{user.email}}</td>
+														<td>{{user.mobile}}</td>
+														<td>{{user.loggedInDate }}</td>
+														<td>{{user.businessName}}</td>
+														<td>{{user.status}}</td>
+														<td>{{user.status == userStatus.APPROVED ? 'NA' : user.status == userStatus.PENDING ? 'APPROVE' : '--' }}</td>
+														<td>
+															<a [routerLink]="['/userDetails',user.userid]">View</a>&nbsp;
+															<a style="cursor: pointer;" (click)="openModal('#exampleModalCenter',user)">Block</a>
+														</td>
+													</tr>
+												</table>
+												<pagination-controls (pageChange)="currPage = $event"></pagination-controls>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center" id="exampleModalLongTitle">Block</h3>
+        
+      </div>
+      <div class="modal-body text-center">
+        Are you sure you want to block {{blockingUser.name}} ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="blockUser()">YES</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>

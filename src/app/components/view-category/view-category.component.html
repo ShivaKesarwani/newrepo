@@ -1,0 +1,64 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="inner-container">
+				<div class="row">
+					<div class="col-lg-6 col-lg-offset-3">
+						<div class="inner-main">
+							<form class="form-horizontal" autocomplete="off">
+								<div class="content-sec">
+									<h2 class="title">View Category({{categoryid}})</h2>
+									<div class="form-sec">
+										<div class="row">
+											<div class="row">
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label class="col-sm-4 control-label">Category Name</label>
+														<div class="col-sm-8">
+															<input type="text" disabled="true" class="form-control" value="{{categoryDetails.categoryName}}">
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label class="col-sm-4 control-label">Category Name Arabic</label>
+														<div class="col-sm-8">
+															<input type="text" disabled="true" class="form-control" value="{{categoryDetails.categoryNameArabic}}">
+														</div>
+													</div>
+											    </div>
+											</div>
+											<div class="row">
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label class="col-sm-4 control-label">Slug</label>
+														<div class="col-sm-8">
+															<input type="text" disabled="true" class="form-control" value="{{categoryDetails.slug}}">
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="form-group">
+														<label class="col-sm-4 control-label">Slug Arabic</label>
+														<div class="col-sm-8">
+															<input type="text" disabled="true" class="form-control" value="{{categoryDetails.slugArabic}}">
+														</div>
+													</div>
+											    </div>
+											</div>
+										</div>
+										<div class="button-center">
+										  <button class="btn btn-default theme-btn" routerLink="/addEditCategory/{{categoryid}}">Edit</button>
+										  <button class="btn btn-default theme-btn" (click)="goBack()">Back</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

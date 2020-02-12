@@ -1,0 +1,75 @@
+<div>
+ <div id="page-content-wrapper">
+        <div class="page-fade"></div>
+        <header>
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="navbar-header">
+                         <!-- <a href="#" class="navbar-brand-logo"><img src="assets/images/logo.png"/></a> -->
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+</div>
+<div class="container">
+<div class="row">
+	<div class="col-lg-12">
+		<div class="inner-container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<div class="inner-main">
+						<form class="form-inline" [formGroup]="loginForm" novalidate autocomplete="off">
+							<div class="content-sec">
+								<h2 class="title">Login</h2>
+								<div class="form-sec">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="sr-only" for="">Email ID</label>
+												<input type="text" class="form-control" formControlName="emailid" placeholder="Enter Email ID">
+												<div class="error" *ngIf='emailid.invalid && (emailid.touched || emailid.dirty) '>
+													<span *ngIf="emailid.errors.required">Email is required</span>
+													<span *ngIf="emailid.errors.pattern">Please enter a valid email address</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="sr-only" for="">Password</label>
+												<input type="password" class="form-control" formControlName="password" placeholder="Enter Password">
+												<div class="error" *ngIf='password.invalid && (password.touched || password.dirty) '>
+													<span *ngIf="password.errors.required">Password is required</span>
+													<span *ngIf="password.errors.pattern">Please enter a valid password</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<div class="custom-checkbox">
+													<input type="checkbox" name="cc" id="Terms">
+													<label for="Terms"><span>Remember Me</span></label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-sec">
+								<div class="row">
+									<div class="col-sm-12">
+										<button class="btn btn-default theme-btn" type="button" [disabled]="!loginForm.valid"
+										  (click)="submitLoginForm()">Login</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
