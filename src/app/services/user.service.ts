@@ -13,8 +13,15 @@ export class UserService {
    *Get the list of users
    *@returns {Observable<any>} list of agents
   */
-  public getUserList(): Observable<any> {
+  public getUserList(params, body): Observable<any> {
   	let httpHeaders = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
-  	return this.httpClient.get(environment.WEB_SERVER_BASE_URL+'user-management/getusers', { headers: httpHeaders })
+  	return this.httpClient.post(environment.WEB_SERVER_BASE_URL+'user-management/getusers'+params, body, { headers: httpHeaders })
+  }
+
+  //Get partcular user data using userId
+  public getUserData(id): Observable<any> {
+    let headers = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
+    return this.httpClient.get(environment.WEB_SERVER_BASE_URL+'user-management/view-individual-user/'+id,
+      { headers })
   }
 }

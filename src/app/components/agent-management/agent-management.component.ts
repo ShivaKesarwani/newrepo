@@ -40,7 +40,6 @@ export class AgentManagementComponent implements OnInit {
   getAgentList(options) {
     this.loader.startLoader()
     const pageNumber = options.currPage || this.currPage
-    console.log(pageNumber)
     const params = `?pageNumber=${pageNumber}&pageSize=10`
     this.agent.getAgentList(params, {}).subscribe(data => {
       this.loader.stopLoader()

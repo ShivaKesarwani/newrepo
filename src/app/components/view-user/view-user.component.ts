@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
 import { WALLET, ORDER } from '../../constants/common';
+import { UserService } from '../../services/user.service';
+import { LoaderService } from '../../services/loader.service';
+import { ToasterService } from '../../services/toaster.service';
 
 @Component({
   selector: 'app-view-user',
@@ -22,7 +25,8 @@ export class ViewUserComponent implements OnInit {
   sNo: number;
   walletStatuses = Object.values(WALLET.STATUS)
   orderTypes = Object.values(ORDER.TYPE)
-  constructor(private route: ActivatedRoute, private router:Router) { }
+  constructor(private route: ActivatedRoute, private router:Router, private toastr:ToasterService,
+    private loader:LoaderService, private userService:UserService) { }
 
   async ngOnInit() {
   	this.userid = this.route.snapshot.params.id
@@ -33,16 +37,15 @@ export class ViewUserComponent implements OnInit {
   }
 
   async getUserDetails(id) {
-  	this.userDetails = {
-  		name: 'Shiva Kesarwani',
-  		userType: 'Individual User',
-  		email: 'shiva68kesarwani@gmail.com',
-  		userid: 1,
-      mobile: '+917890650987',
-      balance: '$1000',
-      orders: 10,
-      image: ''
-  	} 
+  	this.loader.startLoader()
+    this.userService.getUserData(this.userid).subscribe(data => {
+      this.loader.stopLoader()
+      if(data.status==200) {
+        this.userDetails = data.data.responseData
+      }else {
+        this.toastr.showError(data.message)
+      }
+    })
   }
 
   async getWalletDetails(id) {

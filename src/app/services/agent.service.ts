@@ -15,6 +15,6 @@ export class AgentService {
   */
   public getAgentList(params, body): Observable<any> {
   	let httpHeaders = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
-  	return this.httpClient.post(environment.WEB_SERVER_BASE_URL+'agent-management/getAgents'+params, {}, { headers: httpHeaders })
+  	return this.httpClient.post(environment.WEB_SERVER_BASE_URL+'agent-management/getAgents'+params, body, { headers: httpHeaders })
   } 
 }

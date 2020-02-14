@@ -33,25 +33,33 @@
 													</tr>
 													<tr>
 														<td></td>
-														<td><input type="text" (keyup)="searchUser('id')" [(ngModel)]="searchObject.id" placeholder="Search"></td>
-														<td><input type="text" (keyup)="searchUser('name')" [(ngModel)]="searchObject.name" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.userId"
+														  placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.name"
+														  placeholder="Search"></td>
 														<td>
 															<div>
-															  <select (change)="searchUser('type')" [(ngModel)]="searchObject.userType">
-															  	<option value="All">All</option>
-																<option *ngFor="let type of types" value="{{type}}">{{type}}</option>
+															  <select (change)="searchUser()" [(ngModel)]="searchObject.userTypeId">
+															  	<option value="">All</option>
+																<option *ngFor="let item of userType | keyvalue" value="{{item.key}}">
+																  {{item.value}}</option>
 															  </select>
 															</div>
 														</td>
-														<td><input type="text" (keyup)="searchUser('email')" [(ngModel)]="searchObject.email" placeholder="Search"></td>
-														<td><input type="text" (keyup)="searchUser('mobile')" [(ngModel)]="searchObject.mobile" placeholder="Search"></td>
-														<td><input type="text" (keyup)="searchUser('login')" [(ngModel)]="searchObject.loginDate" placeholder="Search by date"></td>
-														<td><input type="text" (keyup)="searchUser('business')" [(ngModel)]="searchObject.businessName" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.emailId"
+														  placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.phone"
+														  placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.loginDate"
+														  placeholder="Search by date"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.businessName"
+														  placeholder="Search"></td>
 														<td>
 															<div>
 															  <select (change)="searchUser('status')" [(ngModel)]="searchObject.status">
-															  	<option value="All">All</option>
-																<option *ngFor="let status of statuses" value="{{status}}">{{status}}</option>
+															  	<option value="">All</option>
+																<option *ngFor="let item of userStatus | keyvalue" value="{{item.key}}">
+																  {{item.value}}</option>
 															  </select>
 															</div>
 														</td>
@@ -60,17 +68,20 @@
 													</tr>
 													<tr *ngFor="let user of userList | paginate: { itemsPerPage: 10, currentPage: currPage };let i=index">
 														<td>{{sNo+i+1}}</td>
-														<td>{{user.userid}}</td>
+														<td>{{user.userId}}</td>
 														<td>{{user.name}}</td>
-														<td>{{user.userType}}</td>
-														<td>{{user.email}}</td>
-														<td>{{user.mobile}}</td>
+														<td>{{userType[user.userTypeId]}}</td>
+														<td>{{user.emailId}}</td>
+														<td>{{user.phone}}</td>
 														<td>{{user.loggedInDate }}</td>
 														<td>{{user.businessName}}</td>
-														<td>{{user.status}}</td>
-														<td>{{user.status == userStatus.APPROVED ? 'NA' : user.status == userStatus.PENDING ? 'APPROVE' : '--' }}</td>
+														<td>{{userStatus[user.status]}}</td>
+														<td>{{ user.status == userStatus['1']
+														    ? 'NA' : user.status == userStatus[2]
+														    ? 'APPROVE' : '--' }}
+														</td>
 														<td>
-															<a [routerLink]="['/userDetails',user.userid]">View</a>&nbsp;
+															<a [routerLink]="['/userDetails',user.userId]">View</a>&nbsp;
 															<a style="cursor: pointer;" (click)="openModal('#exampleModalCenter',user)">Block</a>
 														</td>
 													</tr>

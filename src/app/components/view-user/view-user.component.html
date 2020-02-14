@@ -19,43 +19,43 @@
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">Full Name</label>
 												<div class="col-sm-8">
-													<input type="text" disabled="true" class="form-control" value="{{userDetails.name}}">
+													<input type="text" disabled="true" class="form-control" value="{{userDetails?.name}}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">Email ID</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" disabled="true" value="{{userDetails.email}}">
+													<input type="text" class="form-control" disabled="true" value="{{userDetails?.emailId}}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">Mobile No.</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" disabled="true" value="{{userDetails.mobile}}">
+													<input type="text" class="form-control" disabled="true" value="{{userDetails?.phone}}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">User Type</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" disabled="true" value="{{userDetails.userType}}">
+													<input type="text" class="form-control" disabled="true" value="{{userDetails?.userTypeId}}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">Wallet Balance</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" value="{{userDetails.balance}}">
+													<input type="text" class="form-control" value="{{userDetails?.balance}}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">No. of Orders</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" value="{{userDetails.orders}}">
+													<input type="text" class="form-control" value="{{userDetails?.orders}}">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="" class="col-sm-4 control-label">Picture</label>
 												<div class="col-sm-8">
-													<img src="assets/images/logo.png">
+													<img src="{{userDetails?.image}}">
 												</div>
 											</div>
 										</div>

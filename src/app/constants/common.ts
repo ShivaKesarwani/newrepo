@@ -1,12 +1,14 @@
 export const USER = {
   TYPE: {
-  	Business: 'Business User',
-  	Individual: 'Individual User'
+  	'1': 'Business User',
+  	'2': 'Individual User'
   },
   STATUS: {
-  	APPROVED: 'Approved',
-  	PENDING: 'Pending',
-  	BLOCKED: 'Blocked'
+  	'1': 'Approved',
+  	'2': 'Pending',
+  	'3': 'Blocked',
+    '4': 'Active',
+    '5': 'Inactive'
   }
 }
 

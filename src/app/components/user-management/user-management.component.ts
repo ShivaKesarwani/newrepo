@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { USER } from '../../constants/common';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { LoaderService } from '../../services/loader.service';
+import { ToasterService } from '../../services/toaster.service';
 declare var $;
 
 @Component({
@@ -12,100 +15,50 @@ export class UserManagementComponent implements OnInit {
   userList: object[]; 
   currPage: number;
   sNo: number;
-  types = Object.values(USER.TYPE);
-  statuses = Object.values(USER.STATUS);
   userStatus: object;
+  userType: object;
+  totalItems: number;
   searchObject = {
-  	id: '',
+  	userId: '',
   	name: '',
-  	userType: 'All',
-  	email: '',
-  	mobile: '',
+  	userTypeId: '',
+  	emailId: '',
+  	phone: '',
   	loginDate: '',
   	businessName: '',
-  	status: 'All'
+  	status: ''
   };
   blockingUser = {};
-  constructor(private router:Router) {
+  constructor(private router:Router, private loader:LoaderService, private toastr:ToasterService,
+    private userService:UserService) {
   	this.userStatus = USER.STATUS
+    this.userType = USER.TYPE
   }
 
   ngOnInit() {
   	this.currPage = 1;
-  	this.sNo = (this.currPage-1) * 10;
-  	this.userList = [
-	    {
-	    	name: 'Shiva Kesarwani',
-	    	email: 'shiva@gmail.com',
-	    	createdOn: '14/01/2019',
-	    	userType: 'Individual User',
-	    	mobile: '+918080808080',
-	    	loggedInDate: '17/01/2019',
-	    	businessName: 'Caterers',
-	    	status: 'Approved',
-	    	userid: 1
-	    },
-	    {
-	    	name: 'Sagar Bajaj',
-	    	email: 'sagar@gmail.com',
-	    	createdOn: '15/01/2019',
-	    	userType: 'Business User',
-	    	mobile: '+918080806789',
-	    	loggedInDate: '18/01/2019',
-	    	businessName: 'Bakery',
-	    	status: 'Pending',
-	    	userid: 2
-	    },
-	    {
-	    	name: 'Piyoosh Kumar',
-	    	email: 'piyoosh@gmail.com',
-	    	createdOn: '15/01/2020',
-	    	userType: 'Business User',
-	    	mobile: '+918080776789',
-	    	loggedInDate: '18/01/2020',
-	    	businessName: 'Bakery',
-	    	status: 'Blocked',
-	    	userid: 3
-	    }
-    ]
+    this.getUserList({ body: {} })
   }
 
-  getUserList(search) {
-  	console.log('user list found')
+  getUserList(options) {
+    this.loader.startLoader()
+  	const pageNumber = options.currPage || this.currPage
+    const params = `?pageNumber=${pageNumber}&pageSize=10`
+    this.userService.getUserList(params,options.body).subscribe(data => {
+      this.loader.stopLoader()
+      if(data.status==200) {
+        this.currPage = data.data.pagination.currentPage
+        this.sNo = (this.currPage-1) * 10;
+        this.totalItems = data.data.pagination.totalCount
+        this.userList = data.data.responseData
+      }else {
+        this.toastr.showError(data.message)
+      }
+    })
   }
 
-  async searchUser(type) {
-  	let search = ''
-  	switch (type) {
-  		case "id":
-  		  search = this.searchObject.id
-  		  break;
-  		case "name":
-  		  search = this.searchObject.name
-  		  break
-  		case "type":
-  		  search = this.searchObject.userType
-  		  break
-  		case "email":
-  		  search = this.searchObject.email
-  		  break
-  		case "mobile":
-  		  search = this.searchObject.mobile
-  		  break
-  		case "login":
-  		  search = this.searchObject.loginDate
-  		  break
-  		case "business":
-  		  search = this.searchObject.businessName
-  		  break
-  		case "status":
-  		  search = this.searchObject.status
-  		  break
-  		default:
-  		  search = ''
-  		  break;
-  	}
-  	this.getUserList(search)
+  searchUser(type) {
+  	this.getUserList({ body: this.searchObject })
   }
 
   openModal(id,user) {
