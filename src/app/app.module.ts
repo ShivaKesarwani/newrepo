@@ -12,6 +12,7 @@ import { NgxUiLoaderModule } from  'ngx-ui-loader';
 //Service
 import { LoginService } from './services/login.service';
 import { ToasterService } from './services/toaster.service';
+import { AuthSecurity } from './security/auth.security';
 
 //Components
 import { AppComponent } from './app.component';
@@ -67,7 +68,7 @@ import { StaticContentTypesComponent } from './components/static-content-types/s
     BrowserAnimationsModule,
     NgxUiLoaderModule
   ],
-  providers: [LoginService,ToasterService],
+  providers: [LoginService,ToasterService,AuthSecurity],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

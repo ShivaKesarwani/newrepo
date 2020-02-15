@@ -42,4 +42,4 @@ export const STATIC_CONTENT_PAGE_TYPES = [
   'Privacy Policy'
 ]
 
-export const ACCESS_TOKEN = 'accessToken';
+export const ACCESS_TOKEN = 'access_token';

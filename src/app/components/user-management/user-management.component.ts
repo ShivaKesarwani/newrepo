@@ -58,7 +58,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   searchUser(type) {
-  	this.getUserList({ body: this.searchObject })
+  	this.getUserList({ body: this.searchObject, currPage:1 })
   }
 
   openModal(id,user) {
@@ -67,7 +67,17 @@ export class UserManagementComponent implements OnInit {
   }
 
   blockUser() {
-  	console.log('Blocking userid is', this.blockingUser)
+    const params = `?userId=${this.blockingUser['userId']}&block=${this.blockingUser['status']==3 ? false : true}`
+  	this.loader.startLoader()
+    this.userService.blockUser(params).subscribe(data => {
+      this.loader.stopLoader()
+      if(data.status==200) {
+        this.toastr.showSuccess(data.message)
+        this.getUserList({ currPage: this.currPage, body: this.searchObject })
+      } else {
+        this.toastr.showError(data.message)
+      }
+    })
     $('#exampleModalCenter').modal('hide')
   }
 

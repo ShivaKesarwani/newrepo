@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthSecurity } from './security/auth.security';
 
 //Components
 import { LoginComponent } from './components/login/login.component';
@@ -21,23 +22,23 @@ import { StaticContentTypesComponent } from './components/static-content-types/s
 const routes: Routes = [
   { 'path': '', 'redirectTo': '/login', 'pathMatch': 'full' },
   { 'path': 'login', component: LoginComponent },
-  { 'path': 'dashboard', component: DashboardComponent },
-  { 'path': 'user', component: UserManagementComponent },
-  { 'path': 'userDetails/:id', component: ViewUserComponent },
-  { 'path': 'addBalance/:id/:type', component: AddWalletBalanceComponent },
-  { 'path': 'addBusinessUser', component: AddBusinessUserComponent },
-  { 'path': 'agent', component: AgentManagementComponent },
-  { 'path': 'category', component: CategoryComponent },
-  { 'path': 'viewCategory/:id', component: ViewCategoryComponent },
-  { 'path': 'addEditCategory/:id', component: AddEditCategoryComponent },
-  { 'path': 'category', component: CategoryComponent },
-  { 'path': 'viewCategory/:id', component: ViewCategoryComponent },
-  { 'path': 'addEditCategory/:id', component: AddEditCategoryComponent },
-  { 'path': 'subcategories', component: SubCategoryComponent },
-  { 'path': 'viewSubCategories/:id', component: ViewsubCategoryComponent },
-  { 'path': 'addEditCategories/:id', component: AddEditsubCategoryComponent },
-  { 'path': 'staticContent', component: StaticContentComponent },
-  { 'path': 'staticContentType/:type', component: StaticContentTypesComponent }
+  { 'path': 'dashboard', component: DashboardComponent, canActivate:[AuthSecurity] },
+  { 'path': 'user', component: UserManagementComponent, canActivate:[AuthSecurity] },
+  { 'path': 'userDetails/:id', component: ViewUserComponent, canActivate:[AuthSecurity] },
+  { 'path': 'addBalance/:id/:type', component: AddWalletBalanceComponent, canActivate:[AuthSecurity] },
+  { 'path': 'addBusinessUser', component: AddBusinessUserComponent, canActivate:[AuthSecurity] },
+  { 'path': 'agent', component: AgentManagementComponent, canActivate:[AuthSecurity] },
+  { 'path': 'category', component: CategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'viewCategory/:id', component: ViewCategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'addEditCategory/:id', component: AddEditCategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'category', component: CategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'viewCategory/:id', component: ViewCategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'addEditCategory/:id', component: AddEditCategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'subcategories', component: SubCategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'viewSubCategories/:id', component: ViewsubCategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'addEditCategories/:id', component: AddEditsubCategoryComponent, canActivate:[AuthSecurity] },
+  { 'path': 'staticContent', component: StaticContentComponent, canActivate:[AuthSecurity] },
+  { 'path': 'staticContentType/:type', component: StaticContentTypesComponent, canActivate:[AuthSecurity] }
 ];
 
 @NgModule({
