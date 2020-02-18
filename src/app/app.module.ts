@@ -13,6 +13,11 @@ import { NgxUiLoaderModule } from  'ngx-ui-loader';
 import { LoginService } from './services/login.service';
 import { ToasterService } from './services/toaster.service';
 import { AuthSecurity } from './security/auth.security';
+import { UserService } from './services/user.service';
+import { AgentService } from './services/agent.service';
+import { CategoryService } from './services/category.service';
+import { LoaderService } from './services/loader.service';
+import { SubcategoryService } from './services/subcategory.service';
 
 //Components
 import { AppComponent } from './app.component';
@@ -32,6 +37,8 @@ import { ViewsubCategoryComponent } from './components/viewsub-category/viewsub-
 import { AddEditsubCategoryComponent } from './components/add-editsub-category/add-editsub-category.component';
 import { StaticContentComponent } from './components/static-content/static-content.component';
 import { StaticContentTypesComponent } from './components/static-content-types/static-content-types.component';
+import { AddAgentComponent } from './components/add-agent/add-agent.component';
+import { ViewAgentComponent } from './components/view-agent/view-agent.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +58,9 @@ import { StaticContentTypesComponent } from './components/static-content-types/s
     ViewsubCategoryComponent,
     AddEditsubCategoryComponent,
     StaticContentComponent,
-    StaticContentTypesComponent
+    StaticContentTypesComponent,
+    AddAgentComponent,
+    ViewAgentComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +77,8 @@ import { StaticContentTypesComponent } from './components/static-content-types/s
     BrowserAnimationsModule,
     NgxUiLoaderModule
   ],
-  providers: [LoginService,ToasterService,AuthSecurity],
+  providers: [LoginService,ToasterService,AuthSecurity,CategoryService,AgentService,UserService,LoaderService,
+    SubcategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

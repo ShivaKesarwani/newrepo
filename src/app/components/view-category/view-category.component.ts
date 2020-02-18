@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
+import { CategoryService } from '../../services/category.service';
+import { LoaderService } from '../../services/loader.service';
+import { ToasterService } from '../../services/toaster.service';
 
 @Component({
   selector: 'app-view-category',
@@ -9,7 +12,8 @@ import { ActivatedRoute } from '@angular/router'
 export class ViewCategoryComponent implements OnInit {
   categoryid: number
   categoryDetails: object
-  constructor(private route:ActivatedRoute) {
+  constructor(private route:ActivatedRoute, private category:CategoryService, private toaster:ToasterService,
+    private loader:LoaderService) {
   	this.categoryid = this.route.snapshot.params.id
   }
 
@@ -18,12 +22,21 @@ export class ViewCategoryComponent implements OnInit {
   }
 
   getCategoryDetails(id) {
-  	this.categoryDetails = {
-  	  categoryName: 'Food',
-  	  categoryNameArabic: 'Food',
-  	  slug: '/user',
-  	  slugArabic: '/user'
-  	}
+    this.loader.startLoader()
+    this.category.viewCategory(id).subscribe(data => {
+      this.loader.stopLoader()
+      if(data.status==200) {
+        const result = data.data.responseData
+        this.categoryDetails = {
+          categoryName: result.categoryName.split(',')[0],
+          categoryNameArabic: result.categoryName.split(',')[1],
+          slug: result.categorySlug.split(',')[0],
+          slugArabic: result.categorySlug.split(',')[1]
+        }     
+      } else {
+        this.toaster.showError(data.message)
+      }
+    })
   }
 
   goBack() {

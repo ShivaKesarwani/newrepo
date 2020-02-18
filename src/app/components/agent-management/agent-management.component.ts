@@ -13,19 +13,18 @@ declare var $;
 })
 export class AgentManagementComponent implements OnInit {
   searchObject = {
-  	name: '',
+  	agentName: '',
   	organization: '',
-  	email: '',
-  	vat: '',
+  	agentEmailId: '',
+  	commercialRegistrationNo: '',
   	loginDate: '',
-  	status: 'All'
+  	status: ''
   };
   agentList: object[]; 
   currPage: number;
   sNo: number;
   totalItems: number;
   blockingAgent = {};
-  statuses = Object.values(USER.STATUS);
   agentStatus: object;
   constructor(private router:Router, private agent:AgentService, private loader:LoaderService,
     private toastr:ToasterService) {
@@ -34,14 +33,14 @@ export class AgentManagementComponent implements OnInit {
 
   ngOnInit() {
     this.currPage = 1
-  	this.getAgentList({});
+  	this.getAgentList({ body: {} });
   }
 
   getAgentList(options) {
     this.loader.startLoader()
     const pageNumber = options.currPage || this.currPage
     const params = `?pageNumber=${pageNumber}&pageSize=10`
-    this.agent.getAgentList(params, {}).subscribe(data => {
+    this.agent.getAgentList(params, options.body).subscribe(data => {
       this.loader.stopLoader()
       if(data.status==200) {
         this.currPage = data.data.pagination.currentPage
@@ -54,32 +53,8 @@ export class AgentManagementComponent implements OnInit {
     })
   }
 
-  async searchUser(type) {
-  	let search = ''
-  	switch (type) {
-  		case "name":
-  		  search = this.searchObject.name
-  		  break
-  		case "organization":
-  		  search = this.searchObject.organization
-  		  break
-  		case "email":
-  		  search = this.searchObject.email
-  		  break
-  		case "vat":
-  		  search = this.searchObject.vat
-  		  break
-  		case "login":
-  		  search = this.searchObject.loginDate
-  		  break
-  		case "status":
-  		  search = this.searchObject.status
-  		  break
-  		default:
-  		  search = ''
-  		  break;
-  	}
-  	this.getAgentList(search)
+  async searchUser() {
+  	this.getAgentList({ body: this.searchObject, currPage:1 })
   }
 
   openModal(id,agent) {
@@ -92,8 +67,8 @@ export class AgentManagementComponent implements OnInit {
     $('#exampleModalCenter').modal('hide')
   }
 
-  goToUser() {
-    this.router.navigate(['/addAgent'])
+  goToAgent() {
+    this.router.navigate(['/addAgent/0'])
   }
 
 }

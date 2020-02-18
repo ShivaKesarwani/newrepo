@@ -77,9 +77,9 @@
 														<td>{{user.loggedInDate }}</td>
 														<td>{{user.businessName}}</td>
 														<td>{{userStatus[user.status]}}</td>
-														<td>{{ user.status == userStatus['1']
-														    ? 'NA' : user.status == userStatus[2]
-														    ? 'APPROVE' : '--' }}
+														<td><p *ngIf="user.status == 1">NA</p>
+														    <a *ngIf="user.status == 2">APPROVE</a>
+														    <p *ngIf="user.status == 3">--</p>
 														</td>
 														<td>
 															<a [routerLink]="['/userDetails',user.userId]">View</a>&nbsp;

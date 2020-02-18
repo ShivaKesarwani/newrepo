@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CATEGORY } from '../../constants/common';
+import { CategoryService } from '../../services/category.service';
+import { LoaderService } from '../../services/loader.service';
+import { ToasterService } from '../../services/toaster.service';
 declare var $;
 
 @Component({
@@ -9,56 +12,46 @@ declare var $;
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  statuses = Object.values(CATEGORY.STATUS)
+  statuses: object
   categoryList: object[];
   currPage: number;
   sNo: number;
   searchObject = {
-  	name: '',
-  	id: '',
-  	status: 'All'
+  	categoryName: '',
+  	categoryId: '',
+  	status: ''
   };
-  hidingCategory = {}
-  constructor(private router:Router) {}
+  hidingCategory: object
+  totalItems: number;
+  constructor(private router:Router, private categoryService:CategoryService, private loader:LoaderService,
+    private toastr:ToasterService) {
+    this.statuses = CATEGORY.STATUS
+  }
 
   ngOnInit() {
   	this.currPage = 1;
-  	this.sNo = (this.currPage-1) * 10;
-  	this.getCategoryList('');
+  	this.getCategoryList({ body: {} });
   }
 
-  getCategoryList(search) {
-  	this.categoryList = [
-  	  {
-  	  	categoryid: 1,
-  	  	categoryName: 'Food',
-  	  	status: 'Active'
-  	  },
-  	  {
-  	  	categoryid: 2,
-  	  	categoryName: 'Drinks',
-  	  	status: 'Hidden'
-  	  }
-  	]
+  getCategoryList(options) {
+  	this.loader.startLoader()
+    const pageNumber = options.currPage || this.currPage
+    const params = `?pageNumber=${pageNumber}&pageSize=10`
+    this.categoryService.getCategoryList(params, options.body).subscribe(data => {
+      this.loader.stopLoader()
+      if(data.status==200) {
+        this.currPage = data.data.pagination.currentPage
+        this.sNo = (this.currPage-1) * 10;
+        this.totalItems = data.data.pagination.totalCount
+        this.categoryList = data.data.responseData
+      } else {
+        this.toastr.showError(data.message)
+      }
+    })
   }
 
-  async searchUser(type) {
-  	let search = ''
-  	switch (type) {
-  		case "name":
-  		  search = this.searchObject.name
-  		  break
-  		case "id":
-  		  search = this.searchObject.id
-  		  break
-  		case "status":
-  		  search = this.searchObject.status
-  		  break
-  		default:
-  		  search = ''
-  		  break;
-  	}
-  	this.getCategoryList(search)
+  async searchUser() {
+  	this.getCategoryList({ body: this.searchObject, currPage:1 })
   }
 
   openModal(id,category) {
@@ -67,7 +60,17 @@ export class CategoryComponent implements OnInit {
   }
 
   hideCategory() {
-  	console.log('Blocking userid is', this.hidingCategory)
+    const params = `?categoryId=${this.hidingCategory['categoryId']}&visible=${this.hidingCategory['status']==4 ? false : true}`
+  	this.loader.startLoader()
+    this.categoryService.hideCategory(params).subscribe(data => {
+      this.loader.stopLoader()
+      if(data.status=200) {
+        $('#exampleModalCenter').modal('hide')
+        this.getCategoryList({ currPage: this.currPage, body: this.searchObject })
+      } else {
+        this.toastr.showSuccess(data.message)
+      }
+    })
     $('#exampleModalCenter').modal('hide')
   }
 

@@ -13,7 +13,7 @@
 										<div class="col-sm-12">
 											<div class="row">
 												<div class="col-sm-12">
-													<input type="submit" value="Add New" (click)="goToUser()" class="btn btn-default theme-btn add pull-right">
+													<input type="submit" value="Add New" (click)="goToAgent()" class="btn btn-default theme-btn add pull-right">
 												</div>
 											</div>
 											<div class="table-responsive">
@@ -32,17 +32,20 @@
 													</tr>
 													<tr>
 														<td></td>
-														<td><input type="text" (keyup)="searchUser('name')" [(ngModel)]="searchObject.name" placeholder="Search"></td>
-														<td><input type="text" (keyup)="searchUser('organization')" [(ngModel)]="searchObject.organization" placeholder="Search"></td>
-														<td><input type="text" (keyup)="searchUser('email')" [(ngModel)]="searchObject.email" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.agentName" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.organization" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.agentEmailId" placeholder="Search"></td>
 														<td></td>
-														<td><input type="text" (keyup)="searchUser('vat')" [(ngModel)]="searchObject.vat" placeholder="Search"></td>
-														<td><input type="text" (keyup)="searchUser('login')" [(ngModel)]="searchObject.loginDate" placeholder="Search by date"></td>
+														<td><input type="text" (keyup)="searchUser()"
+														  [(ngModel)]="searchObject.commercialRegistrationNo" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.loggedinDate"
+														  placeholder="Search by date"></td>
 														<td>
 															<div>
-															  <select (change)="searchUser('status')" [(ngModel)]="searchObject.status">
-															  	<option value="All">All</option>
-																<option *ngFor="let status of statuses" value="{{status}}">{{status}}</option>
+															  <select (change)="searchUser()" [(ngModel)]="searchObject.status">
+															  	<option value="">All</option>
+																<option *ngFor="let status of agentStatus | keyvalue" value="{{status.key}}">
+																  {{status.value}}</option>
 															  </select>
 															</div>
 														</td>
@@ -58,10 +61,10 @@
 														<td>{{agent.phoneNo}}</td>
 														<td>{{agent.vatRegistrationNo}}</td>
 														<td>{{agent.loggedinDate }}</td>
-														<td>{{agent.status}}</td>
-														<td>{{agent.status == agentStatus.APPROVED ? 'NA' : agent.status == agentStatus.PENDING ? 'APPROVE' : '--' }}</td>
+														<td>{{agentStatus[agent.status]}}</td>
+														<td>{{agent.status == 1 ? 'NA' : agent.status == 2 ? 'APPROVE' : '--' }}</td>
 														<td>
-															<a [routerLink]="['/agentDetails',agent.agentid]">View</a>&nbsp;
+															<a [routerLink]="['/agentDetails',agent.agentId]">View</a>&nbsp;
 															<a style="cursor: pointer;" (click)="openModal('#exampleModalCenter',agent)">Block</a>
 														</td>
 													</tr>
@@ -89,7 +92,7 @@
         
       </div>
       <div class="modal-body text-center">
-        Are you sure you want to block {{blockingAgent.name}} ?
+        Are you sure you want to block {{blockingAgent.agentName}} ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="blockAgent()">YES</button>

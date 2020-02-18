@@ -28,8 +28,8 @@ export const ORDER = {
 
 export const CATEGORY = {
   STATUS: {
-    HIDE: 'Hidden',
-    ACTIVE: 'Active'
+    '5': 'Hidden',
+    '4': 'Active'
   }
 }
 

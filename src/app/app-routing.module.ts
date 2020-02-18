@@ -18,6 +18,7 @@ import { ViewsubCategoryComponent } from './components/viewsub-category/viewsub-
 import { AddEditsubCategoryComponent } from './components/add-editsub-category/add-editsub-category.component';
 import { StaticContentComponent } from './components/static-content/static-content.component';
 import { StaticContentTypesComponent } from './components/static-content-types/static-content-types.component';
+import { AddAgentComponent } from './components/add-agent/add-agent.component';
 
 const routes: Routes = [
   { 'path': '', 'redirectTo': '/login', 'pathMatch': 'full' },
@@ -38,7 +39,8 @@ const routes: Routes = [
   { 'path': 'viewSubCategories/:id', component: ViewsubCategoryComponent, canActivate:[AuthSecurity] },
   { 'path': 'addEditCategories/:id', component: AddEditsubCategoryComponent, canActivate:[AuthSecurity] },
   { 'path': 'staticContent', component: StaticContentComponent, canActivate:[AuthSecurity] },
-  { 'path': 'staticContentType/:type', component: StaticContentTypesComponent, canActivate:[AuthSecurity] }
+  { 'path': 'staticContentType/:type', component: StaticContentTypesComponent, canActivate:[AuthSecurity] },
+  { 'path': 'addAgent/:id', component: AddAgentComponent, canActivate:[AuthSecurity] }
 ];
 
 @NgModule({

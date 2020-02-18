@@ -28,27 +28,32 @@
 													</tr>
 													<tr>
 														<td></td>
-														<td><input type="text" (keyup)="searchUser('id')" [(ngModel)]="searchObject.id" placeholder="Search"></td>
-														<td><input type="text" (keyup)="searchUser('name')" [(ngModel)]="searchObject.name" placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.categoryId"
+														  placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.categoryName"
+														  placeholder="Search"></td>
 														<td></td>
 														<td>
 															<div>
 															  <select (change)="searchUser('status')" [(ngModel)]="searchObject.status">
-															  	<option value="All">All</option>
-																<option *ngFor="let status of statuses" value="{{status}}">{{status}} categories</option>
+															  	<option value="">All</option>
+																<option *ngFor="let status of statuses | keyvalue" value="{{status.key}}">
+																  {{status.value}} categories</option>
 															  </select>
 															</div>
 														</td>
 													</tr>
-													<tr *ngFor="let category of categoryList | paginate: { itemsPerPage: 10, currentPage: currPage };let i=index">
+													<tr *ngFor="let category of categoryList | paginate: { itemsPerPage: 10,
+													  currentPage: currPage, totalItems: totalItems  };let i=index">
 														<td>{{sNo+i+1}}</td>
-														<td>{{category.categoryid}}</td>
+														<td>{{category.categoryId}}</td>
 														<td>{{category.categoryName}}</td>
 														<td>
-															<a [routerLink]="['/viewCategory',category.categoryid]">View</a>&nbsp;
-															<a style="cursor: pointer;" (click)="openModal('#exampleModalCenter',category)">Hide</a>
+															<a [routerLink]="['/viewCategory',category.categoryId]">View</a>&nbsp;
+															<a style="cursor: pointer;" (click)="openModal('#exampleModalCenter',category)">
+															  {{category.status== 4 ? 'Hide' : 'Visible'}}</a>
 														</td>
-														<td>{{category.status}}</td>
+														<td>{{statuses[category.status]}}</td>
 													</tr>
 												</table>
 												<pagination-controls (pageChange)="currPage = $event"></pagination-controls>
@@ -74,7 +79,7 @@
         
       </div>
       <div class="modal-body text-center">
-        Are you sure you want to hide the {{hidingCategory.categoryName}} ?
+        Are you sure you want to hide the {{hidingCategory?.categoryName}} ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="hideCategory()">YES</button>

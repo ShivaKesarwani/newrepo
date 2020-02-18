@@ -250,7 +250,25 @@ color:#fff;
 .btn-center{display:inline-block;}
 
 
-
+.control-label{margin-bottom:5px!important;}
+.mt20{margin-top:20px;}
+table.table-sided tr th{background:#fff;color:#333;}
+.pagination{margin:0px 0 20px;}
+.btn-inline{display:inline-block;}
+.user-img{height:100px;width:100px;}
+.file {
+  position: relative;
+  overflow: hidden;
+  background:#544879;
+}
+.file input {
+  position: absolute;
+  font-size: 50px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+.w-100{width:100%;}
 
 
 
