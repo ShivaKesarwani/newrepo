@@ -46,17 +46,18 @@
 													<tr *ngFor="let subCategory of subCategoryList | paginate:
 													  { itemsPerPage: 10, currentPage: currPage, totalItems: totalItems };let i=index">
 														<td>{{sNo+i+1}}</td>
-														<td>{{subCategory.subCategoryId}}</td>
-														<td>{{subCategory.subCategoryName}}</td>
-														<td>{{subCategory.parent}}</td>
+														<td>{{subCategory.categoryId}}</td>
+														<td>{{subCategory.categoryName}}</td>
+														<td>{{subCategory.parentCategoryName}}</td>
 														<td>
-															<a [routerLink]="['/viewSubCategories',subCategory.subCategoryid]">View</a>&nbsp;
-															<a style="cursor: pointer;" (click)="openModal('#exampleModalCenter',subCategory)">Hide</a>
+															<a [routerLink]="['/viewSubCategories',subCategory.categoryId]">View</a>&nbsp;
+															<a style="cursor: pointer;" (click)="openModal('#exampleModalCenter',subCategory)">
+															{{subCategory.status== 4 ? 'Hide' : 'Visible'}}</a>
 														</td>
-														<td>{{subCategory.status}}</td>
+														<td>{{statuses[subCategory.status]}}</td>
 													</tr>
 												</table>
-												<pagination-controls (pageChange)="currPage = $event"></pagination-controls>
+												<pagination-controls (pageChange)="getCategoryList({currPage:$event, body:searchObject})"></pagination-controls>
 											</div>
 										</div>
 									</div>
@@ -79,7 +80,7 @@
         
       </div>
       <div class="modal-body text-center">
-        Are you sure you want to hide the {{hidingCategory?.subCategoryName}} ?
+        Are you sure you want to hide the {{hidingCategory?.categoryName}} ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="hideCategory()">YES</button>

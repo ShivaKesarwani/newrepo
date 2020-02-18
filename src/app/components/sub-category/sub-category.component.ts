@@ -17,10 +17,10 @@ export class SubCategoryComponent implements OnInit {
   currPage: number;
   sNo: number;
   searchObject = {
-  	name: '',
-  	id: '',
-  	parent: '',
-  	status: 'All'
+  	categoryName: '',
+  	categoryId: '',
+  	parentCategoryName: '',
+  	status: ''
   };
   hidingCategory:object;
   totalItems: number;
@@ -61,7 +61,17 @@ export class SubCategoryComponent implements OnInit {
   }
 
   hideCategory() {
-  	console.log('Blocking userid is', this.hidingCategory)
+    const params = `?categoryId=${this.hidingCategory['categoryId']}&visible=${this.hidingCategory['status']==4 ? false : true}`
+    this.loader.startLoader()
+    this.subCategoryService.hideCategory(params).subscribe(data => {
+      this.loader.stopLoader()
+      if(data.status=200) {
+        $('#exampleModalCenter').modal('hide')
+        this.getSubCategoryList({ currPage: this.currPage, body: this.searchObject })
+      } else {
+        this.toastr.showSuccess(data.message)
+      }
+    })
     $('#exampleModalCenter').modal('hide')
   }
 

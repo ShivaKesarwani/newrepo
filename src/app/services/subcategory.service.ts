@@ -33,7 +33,7 @@ export class SubcategoryService {
    //View category
    public viewCategory(id): Observable<any> {
    	  let headers = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
-      return this.httpClient.get(environment.WEB_SERVER_BASE_URL+'category-management/view-category-details/'+id,
+      return this.httpClient.get(environment.WEB_SERVER_BASE_URL+'category-management/view-sub-category-details/'+id,
         { headers })
    }
 

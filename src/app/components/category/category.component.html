@@ -56,7 +56,7 @@
 														<td>{{statuses[category.status]}}</td>
 													</tr>
 												</table>
-												<pagination-controls (pageChange)="currPage = $event"></pagination-controls>
+												<pagination-controls (pageChange)="getCategoryList({currPage:$event, body:searchObject})"></pagination-controls>
 											</div>
 										</div>
 									</div>
