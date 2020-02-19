@@ -8,7 +8,7 @@
 						<div class="inner-main">
 							<form class="form-horizontal" [formGroup]="subCategoryForm" autocomplete="off">
 								<div class="content-sec">
-									<h2 class="title">{{ subCategoryid ? 'Edit' : 'Add' }} Sub-Category</h2>
+									<h2 class="title">{{ subCategoryid!=0 ? 'Edit' : 'Add' }} Sub-Category</h2>
 									<div class="form-sec">
 										<div class="row">
 											<div class="row">
@@ -16,7 +16,13 @@
 													<div class="form-group">
 														<label class="col-sm-4 control-label">Parent Category Name</label>
 														<div class="col-sm-8">
-															<input type="text" class="form-control" formControlName="categoryName">
+															<div class="select-style">
+															  <select formControlName="categoryName">
+															  	<option value="">--Select Category--</option>
+																<option *ngFor="let parent of parentCategoryList" value="{{parent.categoryId}}">
+																  {{parent.categoryName.split(',')[0]}}</option>
+															  </select>
+															</div>
 														</div>
 													</div>
 												</div>
@@ -24,7 +30,13 @@
 													<div class="form-group">
 														<label class="col-sm-4 control-label">Category Name Arabic</label>
 														<div class="col-sm-8">
-															<input type="text" class="form-control" formControlName="categoryNameArabic">
+															<div class="select-style">
+															  <select formControlName="categoryNameArabic">
+															  	<option value="">--Select Category--</option>
+																<option *ngFor="let parent of parentCategoryList" value="{{parent.categoryId}}">
+																  {{parent.categoryName.split(',')[1]}}</option>
+															  </select>
+															</div>
 														</div>
 													</div>
 											    </div>
@@ -85,8 +97,10 @@
 											</div>
 										</div>
 										<div class="button-center">
-										  <button class="btn btn-default theme-btn" [disabled]="!subCategoryForm.valid"
-										    (click)="addOrUpdateSubCategory()">Save</button>
+										  <button class="btn btn-default theme-btn" *ngIf="subCategoryid==0" [disabled]="!subCategoryForm.valid"
+										    (click)="addSubCategory()">Save</button>
+										  <button class="btn btn-default theme-btn" *ngIf="subCategoryid" [disabled]="!subCategoryForm.valid"
+										    (click)="editSubCategory()">Edit</button>
 										</div>
 									</div>
 								</div>

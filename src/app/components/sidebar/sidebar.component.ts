@@ -15,13 +15,12 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router,private loginService:LoginService, private loader:LoaderService,
     private toastr:ToasterService) {
   	const path = window.location.pathname.toLowerCase()
-    console.log('path is', path)
   	if(path.includes('user')) this.url = 'user'
   	else if(path.includes('agent')) this.url = 'agent'
     else if(path.includes('category')) this.url = 'category'
     else if(path.includes('subcategories')) this.url = 'subcategories'
     else if(path.includes('static')) this.url = 'static'
-   console.log('url is ', this.url)
+    else if(path.includes('order')) this.url = 'order'
   }
 
   ngOnInit() {

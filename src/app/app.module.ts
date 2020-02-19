@@ -39,6 +39,8 @@ import { StaticContentComponent } from './components/static-content/static-conte
 import { StaticContentTypesComponent } from './components/static-content-types/static-content-types.component';
 import { AddAgentComponent } from './components/add-agent/add-agent.component';
 import { ViewAgentComponent } from './components/view-agent/view-agent.component';
+import { OrderComponent } from './components/order/order.component';
+import { ViewOrderComponent } from './components/view-order/view-order.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { ViewAgentComponent } from './components/view-agent/view-agent.component
     StaticContentComponent,
     StaticContentTypesComponent,
     AddAgentComponent,
-    ViewAgentComponent
+    ViewAgentComponent,
+    OrderComponent,
+    ViewOrderComponent
   ],
   imports: [
     BrowserModule,

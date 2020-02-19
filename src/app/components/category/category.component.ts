@@ -50,7 +50,7 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  async searchUser() {
+  searchUser() {
   	this.getCategoryList({ body: this.searchObject, currPage:1 })
   }
 

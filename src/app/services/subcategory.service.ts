@@ -19,19 +19,19 @@ export class SubcategoryService {
    }
 
    //Add new category
-   public addNewCategory(body): Observable<any> {
+   public addNewSubCategory(body): Observable<any> {
      let headers = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
-     return this.httpClient.post(environment.WEB_SERVER_BASE_URL+'category-management/add-category', body, { headers })
+     return this.httpClient.post(environment.WEB_SERVER_BASE_URL+'category-management/add-sub-category', body, { headers })
    }
 
    //Edit category
-   public editCategory(body): Observable<any> {
+   public editSubCategory(body): Observable<any> {
      let headers = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
-     return this.httpClient.post(environment.WEB_SERVER_BASE_URL+'category-management/update-category', body, { headers })
+     return this.httpClient.post(environment.WEB_SERVER_BASE_URL+'category-management/update-sub-category', body, { headers })
    }
 
    //View category
-   public viewCategory(id): Observable<any> {
+   public viewSubCategory(id): Observable<any> {
    	  let headers = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
       return this.httpClient.get(environment.WEB_SERVER_BASE_URL+'category-management/view-sub-category-details/'+id,
         { headers })
@@ -42,5 +42,11 @@ export class SubcategoryService {
    	  let headers = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
       return this.httpClient.get(environment.WEB_SERVER_BASE_URL+'category-management/show-hide-category/'+params,
         { headers })
+   }
+
+   //Get parent category list
+   public getParentcategory(): Observable<any> {
+     let headers = new HttpHeaders({ 'access_token': localStorage.getItem('access_token') })
+     return this.httpClient.get(environment.WEB_SERVER_BASE_URL+'category-management/get-parent-categories', { headers }) 
    }
 }

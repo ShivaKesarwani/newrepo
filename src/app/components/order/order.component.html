@@ -1,0 +1,125 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="inner-container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="inner-main">
+							<div class="content-sec">
+								<h2 class="title">Order Management</h2>
+								<div class="form-sec dasboard-shift">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="table-responsive">
+												<table class="table table-bordered">
+													<tr>
+														<th>S.No.</th>
+														<th>Order ID</th>
+														<th>Customer ID</th>
+														<th>Customer Type</th>
+														<th>Customer Email</th>
+														<th>Mobile No.</th>
+														<th>Agent Name & Co.</th>
+														<th>Quantity</th>
+														<th>Total Amount</th>
+														<th>Type of Order</th>
+														<th>Action</th>
+														<th>Order Status</th>
+													</tr>
+													<tr>
+														<td></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.orderId"
+														  placeholder="Search"></td>
+														<td><input type="text" (keyup)="searchUser()" [(ngModel)]="searchObject.userId"
+														  placeholder="Search"></td>
+														<td>
+															<div>
+															  <select (change)="searchUser()" [(ngModel)]="searchObject.userTypeId">
+															  	<option value="0">All</option>
+																<option *ngFor="let type of userType | keyvalue" value="{{type.key}}">
+																  {{type.value}}</option>
+															  </select>
+															</div>
+														</td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td></td>
+														<td>
+															<div>
+															  <select (change)="searchUser()" [(ngModel)]="searchObject.orderType">
+															  	<option value="0">All</option>
+																<option *ngFor="let type of orderType | keyvalue" value="{{type.key}}">
+																  {{type.value}}</option>
+															  </select>
+															</div>
+														</td>
+														<td></td>
+														<td>
+															<div>
+															  <select (change)="searchUser()" [(ngModel)]="searchObject.orderStatus">
+															  	<option value="0">All</option>
+																<option *ngFor="let status of orderStatus | keyvalue" value="{{status.key}}">
+																  {{status.value}}</option>
+															  </select>
+															</div>
+														</td>
+													</tr>
+													<tr *ngFor="let order of orderList | paginate: { itemsPerPage: 10,
+													  currentPage: currPage, totalItems: totalItems  };let i=index">
+														<td>{{sNo+i+1}}</td>
+														<td><a routerLink="/viewOrder/{{order.orderId}}">{{order.orderId}}</a></td>
+														<td>{{order.userId}}</td>
+														<td>{{userType[order.userTypeId]}}</td>
+														<td>{{order.emailId}}</td>
+														<td>{{order.phone}}</td>
+														<td>{{order.agentName}}</td>
+														<td>{{order.orderQuantity}}</td>
+														<td>{{order.totalAmount}}</td>
+														<td>{{orderType[order.orderType]}}</td>
+														<td>
+															<i class="fa fa-refresh" (click)="openOrderModal()"></i>
+														</td>
+														<td>{{orderStatus[order.orderStatus]}}</td>
+													</tr>
+												</table>
+												<pagination-controls (pageChange)="getOrderList({currPage:$event, body:searchObject})">
+												</pagination-controls>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="order" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+		  <div class="container-fluid">
+		    <div class="row">
+		      <div class="col-md-4">Pending</div>
+		      <div class="col-md-4">Order Ready</div>
+		    </div>
+		    <div class="row">
+		      <div class="col-md-4">On Delivery</div>
+		      <div class="col-md-4">Collected</div>
+		    </div>
+		  </div>
+	  </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

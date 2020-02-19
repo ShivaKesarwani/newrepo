@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CategoryService } from '../../services/category.service';
+import { SubcategoryService } from '../../services/subcategory.service';
 import { LoaderService } from '../../services/loader.service';
 import { ToasterService } from '../../services/toaster.service';
 
@@ -12,7 +12,7 @@ import { ToasterService } from '../../services/toaster.service';
 export class ViewsubCategoryComponent implements OnInit {
   subCategoryid: number;
   subCategoryDetails: object;
-  constructor(private route:ActivatedRoute, private category:CategoryService, private toaster:ToasterService,
+  constructor(private route:ActivatedRoute, private subcategory:SubcategoryService, private toaster:ToasterService,
     private loader:LoaderService) {
   	this.subCategoryid = this.route.snapshot.params.id
   }
@@ -23,7 +23,7 @@ export class ViewsubCategoryComponent implements OnInit {
 
   getSubCategoryDetails(id) {
     this.loader.startLoader()
-    this.category.viewCategory(id).subscribe(data => {
+    this.subcategory.viewSubCategory(id).subscribe(data => {
       this.loader.stopLoader()
       if(data.status==200) {
         const result = data.data.responseData

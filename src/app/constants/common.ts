@@ -21,8 +21,17 @@ export const WALLET = {
 
 export const ORDER = {
   TYPE: {
-  	NEW: 'New',
-  	REPRINT: 'Reprint'
+  	'0': 'All',
+    '1': 'New',
+  	'2': 'Reprint'
+  },
+  STATUS: {
+    '0': 'All',
+    '1': 'Pending',
+    '2': 'Order Ready',
+    '3': 'On Delivery',
+    '4': 'Collected',
+    '5': 'Cancelled'
   }
 }
 
